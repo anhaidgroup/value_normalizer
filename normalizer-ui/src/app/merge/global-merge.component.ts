@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMergeService} from './global-merge.service';
 import {KeyList} from '../models/custom.interface';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'global-merge',
@@ -21,7 +21,8 @@ export class GlobalMergeComponent implements OnInit {
   display = [];
   globalDiff = [];
   constructor(private globalMergeService: GlobalMergeService,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -115,5 +116,9 @@ export class GlobalMergeComponent implements OnInit {
         this.globalDiff = [];
       }
     });
+  }
+
+  finish() {
+    this.router.navigate(['/']);
   }
 }

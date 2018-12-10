@@ -11,8 +11,10 @@
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 
+  <div style="float: right;">
 <input type="button" (click)="merge()" value="Merge"
        class="btn btn-primary btn-md"> &nbsp;
 <input type="button" *ngIf="p === totalPages" (click)="save()" value="Next"
        class="btn btn-primary btn-md">
+    <div style="float: right;" >
 </div>

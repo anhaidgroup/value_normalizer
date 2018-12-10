@@ -11,9 +11,8 @@ import java.nio.file.Paths;
 
 @Service
 public class StorageService {
-    private final Path rootLocation = Paths.get("src/main/resources/csv");
-    private final String storageLocation = "src/main/resources/csv/";
-
+    private final String storageLocation = ConfigurationService.RESOURCE_LOCATION;
+    public static String resourceLocation = "";
     public void store(MultipartFile file) {
         try {
             File newFile = new File(storageLocation+file.getOriginalFilename());

@@ -3,6 +3,7 @@ package edu.wisc.entity.normalizer.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wisc.entity.normalizer.model.KeyValue;
+import edu.wisc.entity.normalizer.services.ConfigurationService;
 import edu.wisc.entity.normalizer.services.StorageService;
 import edu.wisc.entity.normalizer.util.CsvToJsonConverter;
 import edu.wisc.entity.normalizer.util.CsvUtil;
@@ -51,14 +52,14 @@ public class FileViewController {
     @RequestMapping(value = "/file", params = {"name"},  method = RequestMethod.GET, produces = "application/json")
     public String read(@RequestParam(value = "name") String name) throws IOException {
         System.out.println(name);
-        File csvFile = new File("src/main/resources/csv/"+name);
+        File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
         return CsvToJsonConverter.readObjectsFromCsv(csvFile);
     }
 
     @RequestMapping(value = "/file/header", params = {"name"},  method = RequestMethod.GET, produces = "application/json")
     public String fileHeader(@RequestParam(value = "name") String name) throws IOException {
         System.out.println(name);
-        File csvFile = new File("src/main/resources/csv/"+name);
+        File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
         String headers = CsvToJsonConverter.getHeaders(csvFile);
         return headers;
     }
@@ -68,7 +69,7 @@ public class FileViewController {
     public String fileColumn(@RequestParam(value = "name") String name, @RequestParam(value = "column") String column,
                              @RequestParam(value = "sort") String sort ) {
         System.out.println(name);
-        File csvFile = new File("src/main/resources/csv/"+name);
+        File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
         return CsvUtil.getCsvColumn(csvFile, Integer.valueOf(column), Integer.valueOf(sort));
     }
 
@@ -76,7 +77,7 @@ public class FileViewController {
             method = RequestMethod.GET, produces = "application/json")
     public String fileColumn(@RequestParam(value = "name") String name, @RequestParam(value = "column") String column) {
         System.out.println(name);
-        File csvFile = new File("src/main/resources/csv/"+name);
+        File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
         return CsvUtil.getGlobalColumn(csvFile, Integer.valueOf(column));
     }
 
@@ -86,7 +87,7 @@ public class FileViewController {
         System.out.println(keyval);
         String message = "";
         try {
-            File csvFile = new File("src/main/resources/csv/"+name);
+            File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
             ObjectMapper mapper = new ObjectMapper();
             List<List<KeyValue>> keyValData = mapper.readValue(keyval, new TypeReference<List<List<KeyValue>>>(){});
             message = CsvUtil.writeCSVDiff(csvFile, Integer.valueOf(column), keyValData);
@@ -107,7 +108,7 @@ public class FileViewController {
         String message = "";
         try {
             ObjectMapper mapper = new ObjectMapper();
-            File csvFile = new File("src/main/resources/csv/"+name);
+            File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
             List<List<Integer>> keyValData = mapper.readValue(keyval, new TypeReference<List<List<Integer>>>(){});
 //            keyValData.entrySet().forEach( (entry) -> {
 //                System.out.print(entry.getKey() + " - ");
