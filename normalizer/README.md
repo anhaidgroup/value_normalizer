@@ -42,8 +42,8 @@ Example Input - [[{"index":5,"value":"hello"},{"index":6,"value":"hellos"}],[{"i
 ```
 GET - http://localhost:8080/api/file/global?name=<file_name.csv>&column=<column_to_perform_global_merge>
 Output - List of KeyList pairs where key is the actual column data and value is the list of locations at which this data occurs in the csv file.
-Example - If *hello* occurs at location 5, *hellos* at location 6, *bye* at location 7, *byes* at location 8 then data would be:- 
-Example Output - [{"key":"hello","values":[5,6]},{"key":"bye","values":[7,8]}
+Example - If *hello* occurs at location 5, *hellos* at location 6, *bye* at location 7, *byes* at location 8, *hi* at location 9 and 10 then data would be:- 
+Example Output - [{"key":"hello","values":[5]},{"key":"hellos","values":[6]},{"key":"bye","values":[7]},{"key":"byes","values":[8]}, {"key":"hi","values":[9,10]}]
 ```
 
 7) Save global merge diff to disk. Input is of type `List<List<Integer>>`.
