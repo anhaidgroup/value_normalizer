@@ -58,7 +58,7 @@ Param - {keyval:<data of type List<List<Integer>>}
 Input - Data of type List<List<Integer>>. Each list in this data is the list of indexes of values that are same and have to be normalized. 
 
 Example -If *hello* which occurs at location 5 is same as *hellos* at location 6 and *bye* which occurs at location 7 is same as *byes* at location 8 and they have to be normalized. The data would be:-
-Example output - [[5,6],[7,8]] 
+Example input - [[5,6],[7,8]] 
 ```
 
 For more information about the APIs and how they have been implemented, check [controller]( https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer/src/main/java/edu/wisc/entity/normalizer/controller/FileViewController.java)
