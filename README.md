@@ -102,5 +102,5 @@ To use this tool, navigate to the location where its deployed (either http://loc
 After finishing the global merge process, you'll be left with the normalized values.
 
 ## API
-For API documentation, refer the [Readme](https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer/Readme.md) of backend code.
+For API documentation, refer the [Readme](https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer/README.md) of backend code.
 
