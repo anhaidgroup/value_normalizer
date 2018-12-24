@@ -34,7 +34,7 @@ Param - {keyval:<data of type List<List<KeyList>>}
 Input - Data of type List<List<KeyList>>. Each list in this data is the list of values that are same and have to be normalized. For example if *hello* is same as *hellos* and *bye* is same as *byes* and have to be normalized. The data would be [[hello,hellos],[bye,byes]] 
 ```
 
-6) 4) Get data for global merging. Output is of type [KeyList](https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer/src/main/java/edu/wisc/entity/normalizer/model/KeyList.java)
+6) Get data for global merging. Output is of type [KeyList](https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer/src/main/java/edu/wisc/entity/normalizer/model/KeyList.java)
 ```
 GET - http://localhost:8080/api/file/global?name=<file_name.csv>&column=<column_to_perform_global_merge>
 Output - List of KeyList pairs where key is the actual column data and value is the list of locations at which this data occurs in the csv file.
