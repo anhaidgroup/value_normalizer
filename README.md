@@ -96,5 +96,11 @@ Press CTRL+q or CTRL+p to run the docker image in background.
 10) You can stop (or terminate) the service from the EC2 instance dashboard. Select your EC2 instance, click on “Actions” and then click on stop (or terminate)
 
 ## Usage
-To use this tool, navigate to the location where its deployed (either http://localhost:4200 or http://public_dns_name:4200). 
+To use this tool, navigate to the location where its deployed (either http://localhost:4200 or http://public_dns_name:4200). This opens up the main page where you can upload a CSV file to start normalizing. Once you select the csv file and click on upload, the tool will ask you to select a column. Choose the column you want to normalize and the tool will navigate to local merging UI. 
+1) Local Merging - The first step in merging process is the local merging. On each page of local merging, select the entities which are similar in the list. Click on merge once the selection is complete. Do this for all the pages. 
+2) Global Merging - Clicking *next* on the last page of local merging, will take you to the global merging UI. In this section, you'll see three columns on the top (which will the 3 of the values of the column you selected for normalizing). Select the options where the column value is same as the row value (values you want to normalize). Do this for all the pages. Once you click next on the last page, the top 3 column values will change. This will repeat until all the values are exhausted.
+After finishing the global merge process, you'll be left with the normalized values.
+
+## API
+For API documentation, refer the Readme of backend code.
 
