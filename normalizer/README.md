@@ -42,7 +42,7 @@ Output - List of KeyList pairs where key is the actual column data and value is 
 
 7) Save global merge diff to disk. Input is of type `List<List<Integer>>`.
 ```
-Post - http://localhost:8080/api/file/local/diff/save?name=<file_name.csv>&column=<column_to_perform_normalization>
+Post - http://localhost:8080/api/file/global/diff/save?name=<file_name.csv>&column=<column_to_perform_normalization>
 Param - {keyval:<data of type List<List<Integer>>}
 Input - Data of type List<List<Integer>>. Each list in this data is the list of indexes of values that are same and have to be normalized. For example if *hello* at location 5 is same as *hellos* at location 6 and *bye* at location 7 is same as *byes* at location 8 and they have to be normalized. The data would be [[5,6],[7,8]] 
 ```
