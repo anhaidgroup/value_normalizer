@@ -30,8 +30,8 @@ Output - List of KeyValue pairs where index is the column data and value is the 
 5) Save local merge diff to disk. Input is of type [KeyValue](https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer-ui/src/app/models/custom.interface.ts)
 ```
 Post - http://localhost:8080/api/file/local/diff/save?name=<file_name.csv>&column=<column_to_perform_normalization>
-Param - {keyval:<data of type List<List<KeyList>>}
-Input - Data of type List<List<KeyList>>. Each list in this data is the list of values that are same and have to be normalized. For example if *hello* is same as *hellos* and *bye* is same as *byes* and have to be normalized. The data would be [[hello,hellos],[bye,byes]] 
+Param - {keyval:<data of type List<List<KeyValue>>}
+Input - Data of type List<List<KeyValue>>. Each list in this data is the list of values that are same and have to be normalized. For example if *hello* is same as *hellos* and *bye* is same as *byes* and have to be normalized. The data would be [[hello,hellos],[bye,byes]] 
 ```
 
 6) Get data for global merging. Output is of type [KeyList](https://github.com/anhaidgroup/value_normalizer/blob/master/normalizer/src/main/java/edu/wisc/entity/normalizer/model/KeyList.java)
@@ -40,7 +40,7 @@ GET - http://localhost:8080/api/file/global?name=<file_name.csv>&column=<column_
 Output - List of KeyList pairs where key is the actual column data and value is the list of locations at which this data occurs in the csv file.
 ```
 
-7) Save global merge diff to disk. Input is of type List<List<Integer>>.
+7) Save global merge diff to disk. Input is of type `List<List<Integer>>`.
 ```
 Post - http://localhost:8080/api/file/local/diff/save?name=<file_name.csv>&column=<column_to_perform_normalization>
 Param - {keyval:<data of type List<List<Integer>>}
