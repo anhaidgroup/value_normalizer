@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from '../upload/upload-file.service';
 import {HttpResponse, HttpEventType, HttpErrorResponse} from '@angular/common/http';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import { CookieService } from 'ng2-cookies';
 
 @Component({
   selector: 'upload-file',
@@ -12,12 +13,17 @@ export class UploadFileComponent implements OnInit {
 
   selectedFiles: FileList;
   currentFileUpload: File;
+  url: string;
+  token: string;
   progress: { percentage: number } = { percentage: 0 };
 
   constructor(private uploadService: UploadFileService,
-              private router: Router) { }
+              private router: Router, public cookieService: CookieService,
+              private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    const routeParams = this.activeRoute.snapshot.params;
+    this.token = routeParams.token;
   }
 
   selectFile(event) {
@@ -42,5 +48,25 @@ export class UploadFileComponent implements OnInit {
 
     this.selectedFiles = undefined;
   }
+
+  getFromCDrive() {
+    this.progress.percentage = 0;
+    console.log(this.token);
+    this.uploadService.getFileFromCdrive(this.url, this.token).subscribe((response: any) => {
+      if (response.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * response.loaded / response.total);
+      } else if (response instanceof HttpResponse) {
+        const file = JSON.parse(response.body).file;
+        console.log("Redirecting");
+        this.router.navigate(['/file/header/', file]);
+      } else if (response.type instanceof HttpErrorResponse) {
+        console.log('Some Error occurred uploading');
+      }
+    }, );
+
+    this.url = undefined;
+    this.token = undefined;
+  }
+
 
 }

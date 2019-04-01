@@ -20,4 +20,14 @@ export class UploadFileService {
     });
     return this.http.request(req);
   }
+
+  getFileFromCdrive(url: string, token: string): Observable<HttpEvent<{}>> {
+    console.log('url' + url);
+
+    const req = new HttpRequest('GET', 'api/cdrive/download?url=' + url + '&token=' + token, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+    return this.http.request(req);
+  }
 }

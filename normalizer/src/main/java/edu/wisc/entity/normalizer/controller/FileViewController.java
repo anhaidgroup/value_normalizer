@@ -3,10 +3,12 @@ package edu.wisc.entity.normalizer.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wisc.entity.normalizer.model.KeyValue;
+import edu.wisc.entity.normalizer.services.CDriveService;
 import edu.wisc.entity.normalizer.services.ConfigurationService;
 import edu.wisc.entity.normalizer.services.StorageService;
 import edu.wisc.entity.normalizer.util.CsvToJsonConverter;
 import edu.wisc.entity.normalizer.util.CsvUtil;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +35,9 @@ public class FileViewController {
     @Autowired
     StorageService storageService;
 
+    @Autowired
+    CDriveService cDriveService;
+
     @PostMapping("/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
         System.out.println("In Upload Controller");
@@ -38,6 +49,27 @@ public class FileViewController {
             return ResponseEntity.status(HttpStatus.OK).body(message);
         } catch (Exception e) {
             message = "FAIL to upload " + file.getOriginalFilename() + "!";
+            System.out.println(message);
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        }
+    }
+
+    @RequestMapping(value = "/cdrive/download", params = {"url", "token"},  method = RequestMethod.GET)
+    public ResponseEntity<String> cdriveDownload(@RequestParam(value = "url") String file, @RequestParam(value = "token") String token) throws IOException, URISyntaxException {
+        System.out.println("In Cdrive controller Controller");
+        System.out.println(file);
+        String message = "";
+        URL s3Link = null;
+        try {
+            String download_link = cDriveService.getDownloadLink(file, token);
+            System.out.println("Download Link " + download_link);
+            s3Link = new URL(download_link);
+            storageService.store(s3Link);
+            message = "{\"file\":\"" + FilenameUtils.getName(s3Link.getPath()) + "\"}";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e){
+            message = "FAIL to upload " + FilenameUtils.getName(s3Link.getPath()) + "!";
             System.out.println(message);
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);

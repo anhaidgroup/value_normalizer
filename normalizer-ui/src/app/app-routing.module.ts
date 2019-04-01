@@ -7,6 +7,7 @@ import {GlobalMergeComponent} from './merge/global-merge.component';
 const routes: Routes = [
   { path: 'file/header/:name', component: LocalMergeComponent },
   { path: 'file/global/:name/:column', component: GlobalMergeComponent },
+  { path: ':token', component: UploadFileComponent },
   { path: '**', component: UploadFileComponent}
 ];
 

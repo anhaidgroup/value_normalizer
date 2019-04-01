@@ -10,6 +10,7 @@ import { ColumnDataComponent } from './merge/column-data.component';
 import { GlobalMergeComponent } from './merge/global-merge.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CookieService } from 'ng2-cookies';
 
 @NgModule({
   declarations: [
@@ -17,16 +18,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UploadFileComponent,
     LocalMergeComponent,
     GlobalMergeComponent,
-    ColumnDataComponent
+    ColumnDataComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
