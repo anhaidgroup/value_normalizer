@@ -34,9 +34,9 @@
   <div style="float: right;" >
   <input type="button" (click)="merge()" value="Merge"
          class="btn btn-primary btn-md"> &nbsp;
-  <input type="button" *ngIf="p === totalPages || p > totalPages && totalPages !== 1" (click)="next()" value="Next"
-         class="btn btn-primary btn-md">
-  <input type="button" *ngIf="totalPages === 1> totalPages" (click)="finish()" value="Next"
+  <input type="button" *ngIf="(p === totalPages || p > totalPages) && totalPages !== 1" (click)="next()" value="Next"
+         class="btn btn-primary btn-md"> &nbsp;
+  <input type="button" *ngIf="totalPages === 1" (click)="finish()" value="Finish"
          class="btn btn-primary btn-md">
   </div>
 </div>
