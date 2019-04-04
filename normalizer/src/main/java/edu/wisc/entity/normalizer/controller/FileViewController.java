@@ -10,7 +10,9 @@ import edu.wisc.entity.normalizer.util.CsvToJsonConverter;
 import edu.wisc.entity.normalizer.util.CsvUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,6 +76,12 @@ public class FileViewController {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
         }
+    }
+
+    @RequestMapping(value = "/file/download/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody
+    public FileSystemResource getFile(@PathVariable("name") String fileName) {
+        return new FileSystemResource(storageService.getFile(fileName));
     }
 
     @RequestMapping("/")

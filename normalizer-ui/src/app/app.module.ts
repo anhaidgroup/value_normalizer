@@ -8,6 +8,7 @@ import { UploadFileComponent } from './upload/upload-file.component';
 import { LocalMergeComponent } from './merge/local-merge.component';
 import { ColumnDataComponent } from './merge/column-data.component';
 import { GlobalMergeComponent } from './merge/global-merge.component';
+import { DownloadFileComponent } from './download/download-file.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ng2-cookies';
@@ -19,6 +20,7 @@ import { CookieService } from 'ng2-cookies';
     LocalMergeComponent,
     GlobalMergeComponent,
     ColumnDataComponent,
+    DownloadFileComponent
   ],
   imports: [
     BrowserModule,

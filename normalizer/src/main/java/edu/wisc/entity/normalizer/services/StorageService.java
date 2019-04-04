@@ -39,4 +39,9 @@ public class StorageService {
         }
     }
 
+    public File getFile(String name) {
+        File newFile = new File(storageLocation+name);
+        return newFile;
+    }
+
 }
