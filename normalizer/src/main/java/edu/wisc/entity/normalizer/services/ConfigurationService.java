@@ -14,6 +14,7 @@ public class ConfigurationService {
     private static String LINUX_LOCATION="/normalizer/csv/";
     public static String RESOURCE_LOCATION;
     public static String CDRIVE_DOWNLOAD_URL="http://ec2-3-91-133-41.compute-1.amazonaws.com:8080/cdrive/download/?file_name=";
+    public static String CDRIVE_UPLOAD_URL="http://ec2-3-91-133-41.compute-1.amazonaws.com:8080/cdrive/upload/";
 
     public ConfigurationService() {
         if (SystemUtils.IS_OS_LINUX) {

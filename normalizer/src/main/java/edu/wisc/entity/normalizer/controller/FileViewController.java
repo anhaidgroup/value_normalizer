@@ -78,6 +78,21 @@ public class FileViewController {
         }
     }
 
+    @PostMapping(value = "/cdrive/upload", params = {"name", "token"})
+    public ResponseEntity<String> uploadFileToCdrive(@RequestParam(value = "name") String file, @RequestParam(value = "token") String token) throws IOException, URISyntaxException {
+        String message = "";
+        try {
+            cDriveService.uploadFile(file, token);
+            message = "{\"file\":\"" + file + "\"}";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e){
+            message = "FAIL to upload " + file + "!";
+            System.out.println(message);
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        }
+    }
+
     @RequestMapping(value = "/file/download/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public FileSystemResource getFile(@PathVariable("name") String fileName) {
