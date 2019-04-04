@@ -24,6 +24,11 @@ export class UploadFileComponent implements OnInit {
   ngOnInit() {
     const routeParams = this.activeRoute.snapshot.params;
     this.token = routeParams.token;
+    if (this.token) {
+      this.cookieService.set('cdrive_token', this.token);
+    } else {
+      this.cookieService.delete('cdrive_token');
+    }
   }
 
   selectFile(event) {
