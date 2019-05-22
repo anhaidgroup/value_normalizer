@@ -14,7 +14,7 @@ export class UploadFileService {
 
     formdata.append('file', file);
 
-    const req = new HttpRequest('POST', 'api/upload', formdata, {
+    const req = new HttpRequest('POST', 'api/value_normalizer/upload', formdata, {
       reportProgress: true,
       responseType: 'text'
     });
