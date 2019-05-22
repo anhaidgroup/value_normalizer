@@ -24,7 +24,7 @@ export class UploadFileService {
   getFileFromCdrive(url: string, token: string): Observable<HttpEvent<{}>> {
     console.log('url' + url);
 
-    const req = new HttpRequest('GET', 'api/cdrive/download?url=' + url + '&token=' + token, {
+    const req = new HttpRequest('GET', 'api/value_normalizer/cdrive/download?url=' + url + '&token=' + token, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -32,12 +32,12 @@ export class UploadFileService {
   }
 
   getClientDetials(): Observable<HttpEvent<{}>> {
-    const req = new HttpRequest('GET', 'api/client/details');
+    const req = new HttpRequest('GET', 'api/value_normalizer/client/details');
     return this.http.request(req);
   }
 
   getAuthToken(code): Observable<HttpEvent<{}>> {
-    const req = new HttpRequest('GET', 'api/client/token?code=' + code);
+    const req = new HttpRequest('GET', 'api/value_normalizer/client/token?code=' + code);
     return this.http.request(req);
   }
 }

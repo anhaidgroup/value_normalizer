@@ -57,7 +57,7 @@ export class UploadFileComponent implements OnInit {
       } else if (response instanceof HttpResponse) {
         const file = JSON.parse(response.body).file;
         console.log("Redirecting");
-        this.router.navigate(['/file/header/', file]);
+        this.router.navigate(['/value_normalizer/file/header/', file]);
       } else if (response.type instanceof HttpErrorResponse) {
         console.log('Some Error occurred uploading');
       }
@@ -75,7 +75,7 @@ export class UploadFileComponent implements OnInit {
       } else if (response instanceof HttpResponse) {
         const file = JSON.parse(response.body).file;
         console.log("Redirecting");
-        this.router.navigate(['/file/header/', file]);
+        this.router.navigate(['/value_normalizer/file/header/', file]);
       } else if (response.type instanceof HttpErrorResponse) {
         console.log('Some Error occurred uploading');
       }
@@ -90,7 +90,7 @@ export class UploadFileComponent implements OnInit {
       if (response instanceof HttpResponse) {
         const client_id = response.body.client_id;
         const redirect_uri = response.body.redirect_uri;
-        const auth_url = 'http://a250afd7c6eba11e98ea412ac368fc7a-312971903.us-east-1.elb.amazonaws.com/o/authorize/?response_type=code&client_id=' +
+        const auth_url = 'http://ad09282b27aca11e98ea412ac368fc7a-1539065101.us-east-1.elb.amazonaws.com/authentication/o/authorize/?response_type=code&client_id=' +
           client_id + '&redirect_uri=' + redirect_uri + '&state=1234xyz';
         window.location.href = auth_url;
       }

@@ -9,12 +9,12 @@ export class DownloadFileService {
   constructor(private http: HttpClient) { }
 
   downloadFile(fileName: string) {
-    window.location.href = 'api/file/download/' + fileName;
+    window.location.href = 'api/value_normalizer/file/download/' + fileName;
   }
 
   uploadFileToCdrive(url: string, token: string): Observable<HttpEvent<{}>> {
     console.log('url' + url);
-    const req = new HttpRequest('POST', 'api/cdrive/upload?name=' + url + '&token=' + token, {
+    const req = new HttpRequest('POST', 'api/value_normalizer/cdrive/upload?name=' + url + '&token=' + token, {
       reportProgress: true,
       responseType: 'text'
     });

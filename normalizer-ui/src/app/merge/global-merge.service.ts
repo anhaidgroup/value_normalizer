@@ -10,7 +10,7 @@ export class GlobalMergeService {
   }
 
   getColumnData(name: string, selectedColumn: string) {
-    return this.http.get('api/file/global?name=' + name + '&column='
+    return this.http.get('api/value_normalizer/file/global?name=' + name + '&column='
       + selectedColumn);
   }
 
@@ -19,7 +19,7 @@ export class GlobalMergeService {
     const formdata: FormData = new FormData();
     formdata.append('keyval', JSON.stringify(diff));
 
-    const req = new HttpRequest('POST', 'api/global/diff/save?column=' + selectedColumn + '&name='
+    const req = new HttpRequest('POST', 'api/value_normalizer/global/diff/save?column=' + selectedColumn + '&name='
       + name, formdata, {
       reportProgress: true,
       responseType: 'text'

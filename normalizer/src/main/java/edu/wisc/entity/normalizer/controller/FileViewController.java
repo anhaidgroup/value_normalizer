@@ -26,7 +26,7 @@ import java.net.URL;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/value_normalizer")
 public class FileViewController {
 
     @Autowired

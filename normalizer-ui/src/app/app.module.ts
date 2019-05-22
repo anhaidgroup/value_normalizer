@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './not-found.component'
 import { UploadFileComponent } from './upload/upload-file.component';
 import { LocalMergeComponent } from './merge/local-merge.component';
 import { ColumnDataComponent } from './merge/column-data.component';
@@ -20,7 +21,8 @@ import { CookieService } from 'ng2-cookies';
     LocalMergeComponent,
     GlobalMergeComponent,
     ColumnDataComponent,
-    DownloadFileComponent
+    DownloadFileComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
