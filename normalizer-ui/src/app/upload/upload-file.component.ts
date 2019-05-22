@@ -15,6 +15,7 @@ export class UploadFileComponent implements OnInit {
   currentFileUpload: File;
   url: string;
   token: string;
+  code: string;
   progress: { percentage: number } = { percentage: 0 };
 
   constructor(private uploadService: UploadFileService,
@@ -22,12 +23,23 @@ export class UploadFileComponent implements OnInit {
               private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    const routeParams = this.activeRoute.snapshot.params;
-    this.token = routeParams.token;
-    if (this.token) {
-      this.cookieService.set('cdrive_token', this.token);
-    } else {
-      this.cookieService.delete('cdrive_token');
+    // const routeParams = this.activeRoute.snapshot.params;
+    // this.token = routeParams.token;
+    this.code = this.activeRoute.snapshot.queryParamMap.get('code');
+    if (this.code) {
+      this.uploadService.getAuthToken(this.code).subscribe((response: any) => {
+        if (response instanceof HttpResponse) {
+          this.token = response.body.access_token;
+          console.log(this.token);
+          if (this.token) {
+            this.cookieService.set('cdrive_token', this.token);
+          } else {
+            this.cookieService.delete('cdrive_token');
+          }
+        }
+      }, error => {
+        this.code = null;
+        this.token = null; });
     }
   }
 
@@ -73,5 +85,16 @@ export class UploadFileComponent implements OnInit {
     this.token = undefined;
   }
 
+  redirectToCDrive() {
+    this.uploadService.getClientDetials().subscribe((response: any) => {
+      if (response instanceof HttpResponse) {
+        const client_id = response.body.client_id;
+        const redirect_uri = response.body.redirect_uri;
+        const auth_url = 'http://a250afd7c6eba11e98ea412ac368fc7a-312971903.us-east-1.elb.amazonaws.com/o/authorize/?response_type=code&client_id=' +
+          client_id + '&redirect_uri=' + redirect_uri + '&state=1234xyz';
+        window.location.href = auth_url;
+      }
+    });
+  }
 
 }

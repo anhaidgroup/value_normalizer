@@ -2,6 +2,7 @@ package edu.wisc.entity.normalizer.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import edu.wisc.entity.normalizer.model.KeyValue;
 import edu.wisc.entity.normalizer.services.CDriveService;
 import edu.wisc.entity.normalizer.services.ConfigurationService;
@@ -20,15 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 @RestController
 @RequestMapping("/api")
@@ -159,20 +154,11 @@ public class FileViewController {
     @PostMapping(value = "/global/diff/save", params = {"column", "name"})
     public ResponseEntity<String> saveGlobalDiff(@RequestParam("keyval") String keyval, @RequestParam(value = "column") String column,
                                            @RequestParam(value = "name") String name) {
-//        System.out.println(keyval);
         String message = "";
         try {
             ObjectMapper mapper = new ObjectMapper();
             File csvFile = new File(ConfigurationService.RESOURCE_LOCATION+name);
             List<List<Integer>> keyValData = mapper.readValue(keyval, new TypeReference<List<List<Integer>>>(){});
-//            keyValData.entrySet().forEach( (entry) -> {
-//                System.out.print(entry.getKey() + " - ");
-//                List<Integer> values = entry.getValue();
-//                values.forEach(value -> {
-//                    System.out.print(value + " - ");
-//                });
-//                System.out.println();
-//            });
             System.out.println(keyValData);
             message = CsvUtil.writeGlobalDiff(csvFile, Integer.valueOf(column), keyValData);
             return ResponseEntity.status(HttpStatus.OK).body(message);
@@ -182,8 +168,21 @@ public class FileViewController {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
         }
-
     }
 
+    @RequestMapping(value = "/client/details",  method = RequestMethod.GET, produces = "application/json")
+    public String getClientDetails() {
+        JsonObject clientDetails = new JsonObject();
+        clientDetails.addProperty("client_id", ConfigurationService.CLIENT_ID);
+        clientDetails.addProperty("redirect_uri", ConfigurationService.REDIRECT_URI);
+        return clientDetails.toString();
+    }
 
+    @RequestMapping(value = "/client/token", params = {"code"}, method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<String> getLoginToken(@RequestParam(value = "code") String code) {
+        ResponseEntity<String> response = cDriveService.getLoginToken(code);
+        if (response == null || response.getStatusCode() == HttpStatus.UNAUTHORIZED)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Some Error Occured");
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
+    }
 }

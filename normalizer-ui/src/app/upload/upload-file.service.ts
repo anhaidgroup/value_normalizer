@@ -30,4 +30,14 @@ export class UploadFileService {
     });
     return this.http.request(req);
   }
+
+  getClientDetials(): Observable<HttpEvent<{}>> {
+    const req = new HttpRequest('GET', 'api/client/details');
+    return this.http.request(req);
+  }
+
+  getAuthToken(code): Observable<HttpEvent<{}>> {
+    const req = new HttpRequest('GET', 'api/client/token?code=' + code);
+    return this.http.request(req);
+  }
 }
