@@ -25,5 +25,6 @@ WORKDIR /code/value_normalizer/normalizer-ui
 RUN npm update
 
 WORKDIR /code/value_normalizer
+RUN chmod +x init.sh
 
 CMD ["sh", "-c", "./init.sh"]
