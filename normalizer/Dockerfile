@@ -10,21 +10,10 @@ RUN mv /opt/apache-maven-3.6.1 /opt/maven
 ENV M2_HOME /opt/maven
 ENV PATH $M2_HOME/bin:$PATH
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -y nodejs
-
-RUN npm install -g @angular/cli
-
 WORKDIR /code
 RUN git clone https://github.com/anhaidgroup/value_normalizer.git
 
 WORKDIR /code/value_normalizer/normalizer
 RUN mvn clean install
 
-WORKDIR /code/value_normalizer/normalizer-ui
-RUN npm update
-
-WORKDIR /code/value_normalizer
-RUN chmod +x init.sh
-
-CMD ["sh", "-c", "./init.sh"]
+CMD ["java", "-jar", "target/normalizer-0.0.1-SNAPSHOT.jar"]
