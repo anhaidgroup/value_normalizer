@@ -8,11 +8,10 @@ import {NotFoundComponent} from './not-found.component';
 
 
 const routes: Routes = [
-  { path: 'value_normalizer/file/header/:name', component: LocalMergeComponent },
-  { path: 'value_normalizer/file/global/:name/:column', component: GlobalMergeComponent },
-  { path: 'value_normalizer/file/download/:name', component: DownloadFileComponent },
-  { path: 'value_normalizer/:token', component: UploadFileComponent },
-  { path: 'value_normalizer', component: UploadFileComponent},
+  { path: 'file/header/:name', component: LocalMergeComponent },
+  { path: 'file/global/:name/:column', component: GlobalMergeComponent },
+  { path: 'file/download/:name', component: DownloadFileComponent },
+  { path: ':token', component: UploadFileComponent },
   { path: '**', component: NotFoundComponent}
 ];
 
