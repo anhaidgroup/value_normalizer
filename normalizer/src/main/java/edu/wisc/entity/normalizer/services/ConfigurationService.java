@@ -22,7 +22,7 @@ public class ConfigurationService {
     */
     public static String CLIENT_ID = "3l8f6m6aCbrK25JYQqbISe4ftORcYK0y8jnkZQkH";
     public static String CLIENT_SECRET = "Uk0KdikMZQo1VpdW5mXVObAHX60Tet3xAvOWC5yOy3Le9v7aUaiiMPfRb96gW5JNlewExQOAAIx3rqcU3zLXfKGs1uR7lUYEccYjVgvTBBCtwVE15swH7oiE52QAcO6C";
-    public static String REDIRECT_URI = "http://localhost:4200/value_normalizer";
+    public static String REDIRECT_URI = "http://a02aacfda951e11e9ba9712d8376863f-1653013854.us-east-1.elb.amazonaws.com/home/";
     public static String AUTH_URL = "http://authentication.columbusecosystem.com/o/token/";
     /* End Development Variables
     */
